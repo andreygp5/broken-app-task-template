@@ -1,8 +1,7 @@
-const router = require("express").Router();
 const Game = require("../db").import("../models/game");
 const User = require("../db").import("../models/user");
 
-router.get("/all", async (req, res) => {
+const getAllGames = async (req, res) => {
   try {
     const games = await Game.findAll({ where: { owner_id: req.user.id } });
 
@@ -15,9 +14,9 @@ router.get("/all", async (req, res) => {
       message: "Data not found",
     });
   }
-});
+};
 
-router.get("/:id", async (req, res) => {
+const getGameById = async (req, res) => {
   try {
     const game = await Game.findOne({ where: { id: req.params.id, owner_id: req.user.id } });
 
@@ -35,9 +34,9 @@ router.get("/:id", async (req, res) => {
       message: error.message,
     });
   }
-});
+};
 
-router.post("/create", async (req, res) => {
+const createGame = async (req, res) => {
   const userNotFoundHandler = () =>
     res.status(404).json({
       message: "User provided like owner not found",
@@ -67,9 +66,9 @@ router.post("/create", async (req, res) => {
       message: error.message,
     });
   }
-});
+};
 
-router.put("/update/:id", async (req, res) => {
+const updateGame = async (req, res) => {
   try {
     const game = await Game.update(
       {
@@ -96,9 +95,8 @@ router.put("/update/:id", async (req, res) => {
       message: error.message,
     });
   }
-});
-
-router.delete("/remove/:id", async (req, res) => {
+};
+const deleteGame = async (req, res) => {
   try {
     const game = await Game.destroy({
       where: {
@@ -122,6 +120,6 @@ router.delete("/remove/:id", async (req, res) => {
       message: error.message,
     });
   }
-});
+};
 
-module.exports = router;
+module.exports = { getAllGames, getGameById, createGame, updateGame, deleteGame };

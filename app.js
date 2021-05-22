@@ -2,8 +2,8 @@ require("dotenv").config();
 const express = require("express");
 
 const db = require("./db");
-const userRouter = require("./controllers/usercontroller");
-const gameRouter = require("./controllers/gamecontroller");
+const userRouter = require("./routers/userRouter");
+const gameRouter = require("./routers/gameRouter");
 
 const app = express();
 
@@ -13,7 +13,7 @@ app.use(express.json());
 
 app.use("/api/auth", userRouter);
 
-app.use(require("./middleware/validate-session"));
+app.use(require("./middleware/validateSession"));
 app.use("/api/game", gameRouter);
 
 app.listen(process.env.APP_PORT, () => {

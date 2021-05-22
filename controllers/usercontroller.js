@@ -1,10 +1,9 @@
-const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const User = require("../db").import("../models/user");
 
-router.post("/signup", async (req, res) => {
+const signUp = async (req, res) => {
   try {
     const user = await User.create({
       full_name: req.body.user.full_name,
@@ -23,9 +22,9 @@ router.post("/signup", async (req, res) => {
   } catch (error) {
     res.status(500).send(err.message);
   }
-});
+};
 
-router.post("/signin", async (req, res) => {
+const signIn = async (req, res) => {
   try {
     const user = await User.findOne({ where: { username: req.body.user.username } });
 
@@ -50,6 +49,6 @@ router.post("/signin", async (req, res) => {
   } catch (error) {
     res.status(500).send(err.message);
   }
-});
+};
 
-module.exports = router;
+module.exports = { signUp, signIn };
