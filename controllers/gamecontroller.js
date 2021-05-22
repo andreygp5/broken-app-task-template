@@ -97,20 +97,20 @@ router.delete('/remove/:id', (req, res) => {
             owner_id: req.user.id
         }
     })
-    .then(
-        function deleteSuccess(game) {
-            res.status(200).json({
-                game: game,
-                message: "Successfully deleted"
-            })
-        },
+        .then(
+            function deleteSuccess(game) {
+                res.status(200).json({
+                    game: game,
+                    message: "Successfully deleted"
+                })
+            },
 
-        function deleteFail(err) {
-            res.status(500).json({
-                error: err.message
-            })
-        }
-    )
+            function deleteFail(err) {
+                res.status(500).json({
+                    error: err.message
+                })
+            }
+        )
 })
 
-module.exports = routers;
+module.exports = router;
