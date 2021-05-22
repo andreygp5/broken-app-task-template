@@ -15,6 +15,6 @@ app.use(require("./middleware/validate-session"));
 app.use("/api/auth", userRouter);
 app.use("/api/game", gameRouter);
 
-app.listen(process.env.APP_PORT, function () {
+app.listen(process.env.APP_PORT, () => {
   console.log(`App is listening on ${process.env.APP_PORT}`);
 });

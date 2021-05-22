@@ -4,14 +4,14 @@ const User = require("../db").import("../models/user");
 
 router.get("/all", (req, res) => {
   Game.findAll({ where: { owner_id: req.user.id } }).then(
-    function findSuccess(games) {
+    (games) => {
       res.status(200).json({
         games: games,
         message: "Data fetched.",
       });
     },
 
-    function findFail() {
+    () => {
       res.status(500).json({
         message: "Data not found",
       });
@@ -56,14 +56,14 @@ router.post("/create", (req, res) => {
           user_rating: req.body.game.user_rating,
           have_played: req.body.game.have_played,
         }).then(
-          function createSuccess(game) {
+          (game) => {
             res.status(200).json({
               game: game,
               message: "Game created.",
             });
           },
 
-          function createFail(err) {
+          (err) => {
             res.status(500).send(err.message);
           }
         );
@@ -94,14 +94,14 @@ router.put("/update/:id", (req, res) => {
       },
     }
   ).then(
-    function updateSuccess(game) {
+    (game) => {
       res.status(200).json({
         game: game,
         message: "Successfully updated.",
       });
     },
 
-    function updateFail(err) {
+    (err) => {
       res.status(500).json({
         message: err.message,
       });

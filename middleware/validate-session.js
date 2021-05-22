@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../db").import("../models/user");
 
-module.exports = function (req, res, next) {
+module.exports = (req, res, next) => {
   if (req.method == "OPTIONS") {
     next(); // allowing options as a method for request
   } else {
@@ -20,7 +20,7 @@ module.exports = function (req, res, next) {
 
               next();
             },
-            function () {
+            () => {
               res.status(401).send({ error: "not authorized" });
             }
           );
