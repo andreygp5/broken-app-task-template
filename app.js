@@ -10,9 +10,10 @@ const app = express();
 db.sync();
 
 app.use(express.json());
-app.use(require("./middleware/validate-session"));
 
 app.use("/api/auth", userRouter);
+
+app.use(require("./middleware/validate-session"));
 app.use("/api/game", gameRouter);
 
 app.listen(process.env.APP_PORT, () => {
