@@ -3,20 +3,18 @@ const Game = require("../db").import("../models/game");
 const User = require("../db").import("../models/user");
 
 router.get("/all", (req, res) => {
-  Game.findAll({ where: { owner_id: req.user.id } }).then(
-    (games) => {
+  Game.findAll({ where: { owner_id: req.user.id } })
+    .then((games) => {
       res.status(200).json({
         games: games,
         message: "Data fetched.",
       });
-    },
-
-    () => {
+    })
+    .catch(() =>
       res.status(500).json({
         message: "Data not found",
-      });
-    }
-  );
+      })
+    );
 });
 
 router.get("/:id", (req, res) => {
@@ -55,18 +53,14 @@ router.post("/create", (req, res) => {
           esrb_rating: req.body.game.esrb_rating,
           user_rating: req.body.game.user_rating,
           have_played: req.body.game.have_played,
-        }).then(
-          (game) => {
+        })
+          .then((game) => {
             res.status(200).json({
               game: game,
               message: "Game created.",
             });
-          },
-
-          (err) => {
-            res.status(500).send(err.message);
-          }
-        );
+          })
+          .catch((err) => res.status(500).send(err.message));
       } else {
         userNotFoundHandler();
       }
@@ -93,20 +87,18 @@ router.put("/update/:id", (req, res) => {
         owner_id: req.user.id,
       },
     }
-  ).then(
-    (game) => {
+  )
+    .then((game) => {
       res.status(200).json({
         game: game,
         message: "Successfully updated.",
       });
-    },
-
-    (err) => {
+    })
+    .catch((err) =>
       res.status(500).json({
         message: err.message,
-      });
-    }
-  );
+      })
+    );
 });
 
 router.delete("/remove/:id", (req, res) => {

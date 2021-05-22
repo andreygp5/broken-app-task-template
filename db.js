@@ -8,14 +8,9 @@ const sequelize = new Sequelize(process.env.DB, process.env.DB_USER, process.env
   logging: false,
 });
 
-sequelize.authenticate().then(
-  () => {
-    console.log("Connected to DB");
-  },
-
-  (err) => {
-    console.log(`Error: ${err}`);
-  }
-);
+sequelize
+  .authenticate()
+  .then(() => console.log("Connected to DB"))
+  .catch((err) => console.log(`Error: ${err}`));
 
 module.exports = sequelize;
