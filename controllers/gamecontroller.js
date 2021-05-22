@@ -7,7 +7,7 @@ var User = require('../db').import('../models/user');
 router.get('/all', (req, res) => {
     Game.findAll({ where: { owner_id: req.user.id } })
         .then(
-            function findSuccess(data) { //todo: replace games with data
+            function findSuccess(games) {
                 res.status(200).json({
                     games: games,
                     message: "Data fetched."
