@@ -1,5 +1,3 @@
-const user = require('../models/user');
-
 var router = require('express').Router();
 var Game = require('../db').import('../models/game');
 var User = require('../db').import('../models/user');
