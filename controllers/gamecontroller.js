@@ -44,6 +44,7 @@ router.post('/create', (req, res) => {
     const userNotFoundHandler = () => res.status(404).json({
         message: "User provided like owner not found"
     });
+
     User.findOne({ where: { id: req.body.user.id } })
         .then((user) => {
             if (user) {
