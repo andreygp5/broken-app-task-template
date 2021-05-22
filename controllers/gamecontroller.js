@@ -22,19 +22,22 @@ router.get('/all', (req, res) => {
 
 router.get('/:id', (req, res) => {
     Game.findOne({ where: { id: req.params.id, owner_id: req.user.id } })
-        .then(
-            function findSuccess(game) {
+        .then((game) => {
+            if (game) {
                 res.status(200).json({
                     game: game
                 })
-            },
-
-            function findFail(err) {
+            } else {
                 res.status(500).json({
                     message: "Data not found."
                 })
             }
-        )
+        })
+        .catch((err) => {
+            res.status(500).json({
+                message: err.message
+            })
+        })
 })
 
 router.post('/create', (req, res) => {
@@ -86,7 +89,7 @@ router.put('/update/:id', (req, res) => {
         {
             where: {
                 id: req.params.id,
-                owner_id: req.user //todo: user.id
+                owner_id: req.user.id
             }
         })
         .then(
