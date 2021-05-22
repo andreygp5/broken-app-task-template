@@ -1,5 +1,5 @@
-const Game = require("../db").import("../models/game");
-const User = require("../db").import("../models/user");
+const Game = require("../models/game");
+const User = require("../models/user");
 
 const getAllGames = async (req, res) => {
   try {
