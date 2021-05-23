@@ -20,7 +20,7 @@ const signUp = async (req, res) => {
       token: token,
     });
   } catch (error) {
-    res.status(500).send(err.message);
+    res.status(500).send(error.message);
   }
 };
 
@@ -36,18 +36,18 @@ const signIn = async (req, res) => {
           });
           res.json({
             user: user,
-            message: "Successfully authenticated.",
+            message: "Successfully authenticated",
             sessionToken: token,
           });
         } else {
-          res.status(502).send({ error: "Passwords do not match." });
+          res.status(502).send({ error: "Passwords do not match" });
         }
       });
     } else {
-      res.status(403).send({ error: "User not found." });
+      res.status(404).send({ error: "User not found" });
     }
   } catch (error) {
-    res.status(500).send(err.message);
+    res.status(500).send(error.message);
   }
 };
 

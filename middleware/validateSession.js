@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
     console.log(sessionToken);
 
     if (!sessionToken) {
-      return res.status(403).send({ auth: false, message: "No token provided." });
+      return res.status(403).send({ auth: false, message: "No token provided" });
     } else {
       jwt.verify(sessionToken, "lets_play_sum_games_man", async (err, decoded) => {
         if (decoded) {
@@ -21,10 +21,10 @@ module.exports = (req, res, next) => {
 
             next();
           } catch {
-            res.status(401).send({ error: "not authorized" });
+            res.status(401).send({ error: "Not authorized" });
           }
         } else {
-          res.status(400).send({ error: "not authorized" });
+          res.status(403).send({ error: "Forbidden" });
         }
       });
     }

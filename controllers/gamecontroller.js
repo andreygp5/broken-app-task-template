@@ -7,11 +7,11 @@ const getAllGames = async (req, res) => {
 
     res.status(200).json({
       games: games,
-      message: "Data fetched.",
+      message: "Data fetched",
     });
-  } catch {
+  } catch (error) {
     res.status(500).json({
-      message: "Data not found",
+      message: error.message,
     });
   }
 };
@@ -25,8 +25,8 @@ const getGameById = async (req, res) => {
         game: game,
       });
     } else {
-      res.status(500).json({
-        message: "Data not found.",
+      res.status(404).json({
+        message: "Data not found",
       });
     }
   } catch (error) {
@@ -37,11 +37,6 @@ const getGameById = async (req, res) => {
 };
 
 const createGame = async (req, res) => {
-  const userNotFoundHandler = () =>
-    res.status(404).json({
-      message: "User provided like owner not found",
-    });
-
   try {
     const user = await User.findOne({ where: { id: req.body.user.id } });
 
@@ -56,10 +51,12 @@ const createGame = async (req, res) => {
       });
       res.status(200).json({
         game: game,
-        message: "Game created.",
+        message: "Game created",
       });
     } else {
-      userNotFoundHandler();
+      res.status(404).json({
+        message: "User provided like owner not found",
+      });
     }
   } catch (error) {
     res.status(500).json({
@@ -88,7 +85,7 @@ const updateGame = async (req, res) => {
 
     res.status(200).json({
       game: game,
-      message: "Successfully updated.",
+      message: "Successfully updated",
     });
   } catch (error) {
     res.status(500).json({
