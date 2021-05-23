@@ -83,8 +83,12 @@ const updateGame = async (req, res) => {
       }
     );
 
+    if (game[0] === 0)
+      return res.status(200).json({
+        message: "Nothing to update",
+      });
+
     res.status(200).json({
-      game: game,
       message: "Successfully updated",
     });
   } catch (error) {
@@ -93,6 +97,7 @@ const updateGame = async (req, res) => {
     });
   }
 };
+
 const deleteGame = async (req, res) => {
   try {
     const game = await Game.destroy({
